@@ -1,0 +1,24 @@
+void setup() {
+  Serial.begin(9600);
+  initSensors();
+  initBluetooth();
+}
+
+void loop() {
+  // 생체 데이터 측정
+  float temp = readTemperature();
+  int heartRate = readHeartRate();
+  int spo2 = readSpO2();
+  
+  // 블루투스로 데이터 전송
+  sendData(temp, heartRate, spo2);
+  
+  // 음성 입력 확인
+  if (voiceDetected()) {
+    String emotion = analyzeEmotion();
+    playResponse(emotion);
+  }
+  
+  delay(1000);
+}
+```
